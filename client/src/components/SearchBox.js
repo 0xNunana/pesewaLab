@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import { Combobox } from '@headlessui/react'
-import {search}from "../api/amadeus.api"
+import {search,flight}from "../api/amadeus.api"
 //import SearchPage from '../pages/SearchPage'
 
 
 const SearchBox = ({dept,arr,deptDate,child,adults}) => {
   const[first,setFirst]=useState("")
   const[second,setSecond]=useState("")
+  const[depart,setDepart]=useState("")
 
 const [inputValue, setInputValue] = useState("");
 const [inputValue2, setInputValue2] = useState(""); 
@@ -27,18 +28,21 @@ console.log(options)
     return () => cancel();
   }, [inputValue2])
 //console.log(inputValue)
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   flight(dept,arr,deptDate,child,adults);
-   
-  // }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(first)
+    console.log(second)
+   console.log(depart)
+   flight({first,second,depart})
+   console.log(flight)
+  }
 // const output = options
   
   return (
     <div className='bg-gray-300 py-4 '>
-        <form  className='flex justify-center space-x-5 '>
+        <form  className='flex justify-center space-x-5 '  onSubmit={handleSubmit}>
           <div>
-          <Combobox  value={first} onChange={setFirst} >
+          <Combobox  value={first} onChange={setFirst} name="Depart">
           <Combobox.Label>Departure</Combobox.Label>
           <div>
             <div><Combobox.Input
@@ -60,7 +64,7 @@ console.log(options)
    </Combobox>
     </div>
     <div>
-          <Combobox  value={second} onChange={setSecond} >
+          <Combobox  value={second} onChange={setSecond} name="Arrive">
           <Combobox.Label>Destination</Combobox.Label>
           <div>
             <div><Combobox.Input
@@ -85,7 +89,7 @@ console.log(options)
     <div >
       <div className='block '>
         <div><label htmlFor="date">Date</label></div>
-        <div><input type="date" id="date" value={deptDate}/></div>
+        <div><input type="date" id="date" value={depart} onChange={(e)=>setDepart(e.target.value)}/></div>
       </div>
       
     </div>

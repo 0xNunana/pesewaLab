@@ -26,15 +26,15 @@ const amadeus = new Amadeus({
 
   router.get(`/${API}/shopping`, async (req, res) => {
     try {
-      const { dept,arr,deptDate,adults,child } = req.query;
+      const { first,second,depart } = req.query;
      
       const response = await amadeus.shopping.flightOffersSearch.get({
       
-            originLocationCode:dept,
-            destinationLocationCode:arr,
-            departureDate:deptDate,
-            adults:adults,
-            children:child
+            originLocationCode:`${first}`,
+            destinationLocationCode:`${second}`,
+            departureDate:`${depart}`,
+            adults:1,
+            children:0,
       }
       );
   
